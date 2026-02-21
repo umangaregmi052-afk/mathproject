@@ -203,8 +203,8 @@ app.get('/api/stats', async (req, res) => {
 function normalizeForWolfram(text) {
   return text
     .replace(/^(evaluate|find|compute|calculate|solve|determine|show that|prove that|simplify)\s+/i, '')
-    .replace(/lim\s*\(?\s*([a-z])\s*[→->]+\s*([^)]+)\)?\s*/gi, 'limit as $1->$2 of ')
-    .replace(/lim_\{?([a-z])\s*[→->]+\s*([^}]+)\}?/gi, 'limit as $1->$2 of ')
+    .replace(/lim\s*\(?\s*([a-z])\s*(?:→|->)\s*([^)]+)\)?\s*/gi, 'limit as $1->$2 of ')
+    .replace(/lim_\{?([a-z])\s*(?:→|->)\s*([^}]+)\}?/gi, 'limit as $1->$2 of ')
     .replace(/⁰/g,'^0').replace(/¹/g,'^1').replace(/²/g,'^2').replace(/³/g,'^3')
     .replace(/⁴/g,'^4').replace(/⁵/g,'^5').replace(/⁶/g,'^6').replace(/⁷/g,'^7')
     .replace(/⁸/g,'^8').replace(/⁹/g,'^9').replace(/ⁿ/g,'^n').replace(/ˣ/g,'^x')

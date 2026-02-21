@@ -18,7 +18,12 @@ async function initDB() {
     CREATE TABLE IF NOT EXISTS questions (
       id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
       type TEXT NOT NULL CHECK (type IN ('example', 'exercise')),
-      topic TEXT NOT NULL CHECK (topic IN ('limits', 'integration', 'ode')),
+      topic TEXT NOT NULL CHECK (topic IN (
+      'limits','higher_derivatives','asymptotes','pedal_equation','radius_curvature',
+      'methods_integration','definite_integral','diff_integral_sign','improper_integral',
+      'beta_gamma','area_curve','arc_length','surface_revolution','volume_revolution','centroid_inertia',
+      'homogeneous_ode','bernoulli','first_higher_ode','second_order_linear','second_nonhomogeneous','application_ode'
+    )),
       subtopic TEXT DEFAULT '',
       page TEXT DEFAULT '',
       question TEXT NOT NULL,
@@ -149,9 +154,6 @@ app.get('/api/stats', async (req, res) => {
       SELECT
         COUNT(*) AS total,
         COUNT(*) FILTER (WHERE solved = TRUE) AS solved,
-        COUNT(*) FILTER (WHERE topic = 'limits') AS limits,
-        COUNT(*) FILTER (WHERE topic = 'integration') AS integration,
-        COUNT(*) FILTER (WHERE topic = 'ode') AS ode,
         COUNT(*) FILTER (WHERE type = 'example') AS examples,
         COUNT(*) FILTER (WHERE type = 'exercise') AS exercises
       FROM questions

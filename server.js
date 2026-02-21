@@ -211,51 +211,88 @@ app.post('/api/wolfram-solve/:id', async (req, res) => {
     const appId = process.env.WOLFRAM_APP_ID;
     if (!appId) return res.status(500).json({ error: 'WOLFRAM_APP_ID not configured in environment variables.' });
 
-    // Use Wolfram Alpha Full Results API (pods)
-    const query = encodeURIComponent(q.question);
-    const wolframUrl = `http://api.wolframalpha.com/v2/query?input=${query}&appid=${appId}&output=json&podstate=Step-by-step+solution&includepodid=Result&includepodid=Steps&includepodid=IndefiniteIntegral&includepodid=DefiniteIntegral&includepodid=Derivative&includepodid=SolutionOverASpecificField&includepodid=ComplexSolution&includepodid=Solution`;
-
     const fetch = (await import('node-fetch')).default;
-    const wolRes = await fetch(wolframUrl);
-    const data = await wolRes.json();
 
-    if (!data.queryresult || !data.queryresult.success) {
-      return res.status(422).json({ error: 'Wolfram Alpha could not interpret this question. Try rephrasing it in mathematical notation.' });
-    }
+    // Strip common English prefixes so Wolfram gets clean math
+    const cleanQuery = q.question
+      .replace(/^(evaluate|find|compute|calculate|solve|determine|show that|prove that)\s+/i, '')
+      .replace(/lim\(x→(\S+)\)/gi, 'limit as x->$1 of')
+      .replace(/lim\(x->(\S+)\)/gi, 'limit as x->$1 of')
+      .trim();
 
-    const pods = data.queryresult.pods || [];
+    const encodedQuery = encodeURIComponent(cleanQuery);
+
+    // ── ATTEMPT 1: Full Results API — grab ALL pods, request step-by-step states ──
+    const fullUrl = `https://api.wolframalpha.com/v2/query?input=${encodedQuery}&appid=${appId}&output=json&format=plaintext&podstate=Step-by-step+solution&podstate=Show+all+steps&scantimeout=10&podtimeout=10`;
+
     let solution = '';
 
-    // Extract step-by-step and result pods
-    const wantedPods = ['Steps', 'IndefiniteIntegral', 'DefiniteIntegral', 'Derivative',
-      'Result', 'Solution', 'SolutionOverASpecificField', 'ComplexSolution'];
+    try {
+      const fullRes = await fetch(fullUrl);
+      const data = await fullRes.json();
 
-    for (const pod of pods) {
-      const isWanted = wantedPods.some(id => pod.id && pod.id.includes(id)) || pod.title === 'Result';
-      if (!isWanted && !pod.title?.toLowerCase().includes('step')) continue;
-      solution += `── ${pod.title} ──\n`;
-      for (const sub of (pod.subpods || [])) {
-        if (sub.plaintext && sub.plaintext.trim()) {
-          solution += sub.plaintext.trim() + '\n';
+      if (data.queryresult && data.queryresult.success) {
+        const pods = data.queryresult.pods || [];
+
+        // Collect plaintext from every pod (no filtering — math renders as plaintext for most pods)
+        for (const pod of pods) {
+          const subpods = pod.subpods || [];
+          const texts = subpods
+            .map(s => (s.plaintext || '').trim())
+            .filter(t => t.length > 0);
+
+          if (texts.length > 0) {
+            solution += `── ${pod.title} ──\n${texts.join('\n')}\n\n`;
+          }
         }
       }
-      solution += '\n';
+    } catch (e) {
+      console.warn('Full API attempt failed:', e.message);
+    }
+
+    // ── ATTEMPT 2: Short Answers API — always returns plain text ──
+    if (!solution.trim()) {
+      try {
+        const shortUrl = `https://api.wolframalpha.com/v1/result?input=${encodedQuery}&appid=${appId}`;
+        const shortRes = await fetch(shortUrl);
+        if (shortRes.ok) {
+          const text = await shortRes.text();
+          if (text && !text.toLowerCase().includes('wolfram')) {
+            solution = `── Result ──\n${text.trim()}\n\n(Step-by-step unavailable for this expression — result from Wolfram Alpha Short Answers API)`;
+          }
+        }
+      } catch (e) {
+        console.warn('Short API fallback failed:', e.message);
+      }
+    }
+
+    // ── ATTEMPT 3: Retry Full API with even simpler query (just the math part) ──
+    if (!solution.trim()) {
+      try {
+        const simpleQuery = encodeURIComponent(q.question.replace(/[^\x00-\x7F]/g, '').trim());
+        const retryUrl = `https://api.wolframalpha.com/v2/query?input=${simpleQuery}&appid=${appId}&output=json&format=plaintext`;
+        const retryRes = await fetch(retryUrl);
+        const retryData = await retryRes.json();
+        if (retryData.queryresult && retryData.queryresult.success) {
+          for (const pod of (retryData.queryresult.pods || [])) {
+            const texts = (pod.subpods || []).map(s => (s.plaintext || '').trim()).filter(Boolean);
+            if (texts.length) solution += `── ${pod.title} ──\n${texts.join('\n')}\n\n`;
+          }
+        }
+      } catch (e) {
+        console.warn('Retry attempt failed:', e.message);
+      }
     }
 
     if (!solution.trim()) {
-      // Fallback: grab all pods
-      for (const pod of pods) {
-        solution += `── ${pod.title} ──\n`;
-        for (const sub of (pod.subpods || [])) {
-          if (sub.plaintext && sub.plaintext.trim()) solution += sub.plaintext.trim() + '\n';
-        }
-        solution += '\n';
-      }
+      return res.status(422).json({
+        error: 'Wolfram Alpha could not produce a text solution for this question. Try editing the question to use plain mathematical notation (e.g. "limit x->0 of (tan(x)/x)^(1/x^2)").'
+      });
     }
 
-    solution = solution.trim() || 'Wolfram returned a result but no readable text. Try a more explicit mathematical expression.';
+    solution = solution.trim();
 
-    // Save solution to DB and mark solved
+    // Save to DB and mark solved
     const updated = await pool.query(
       'UPDATE questions SET solution=$1, solved=TRUE WHERE id=$2 RETURNING *',
       [solution, req.params.id]

@@ -84,7 +84,8 @@ const SEED_QUESTIONS = [
 
 async function initDB() {
   await pool.query(`
-    CREATE TABLE IF NOT EXISTS questions (
+    DROP TABLE IF EXISTS questions CASCADE;
+  CREATE TABLE IF NOT EXISTS questions (
       id SERIAL PRIMARY KEY,
       type TEXT NOT NULL CHECK (type IN ('example', 'exercise')),
       topic TEXT NOT NULL,

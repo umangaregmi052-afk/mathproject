@@ -83,9 +83,10 @@ const SEED_QUESTIONS = [
 ];
 
 async function initDB() {
+  // Drop and recreate — ensures schema is always fresh on deploy
+  await pool.query(`DROP TABLE IF EXISTS questions CASCADE`);
   await pool.query(`
-    DROP TABLE IF EXISTS questions CASCADE;
-  CREATE TABLE IF NOT EXISTS questions (
+    CREATE TABLE questions (
       id SERIAL PRIMARY KEY,
       type TEXT NOT NULL CHECK (type IN ('example', 'exercise')),
       topic TEXT NOT NULL,
@@ -99,21 +100,16 @@ async function initDB() {
   `);
   console.log('✓ Database table ready');
 
-  // Seed only if table is empty
-  const { rows } = await pool.query('SELECT COUNT(*) FROM questions');
-  if (parseInt(rows[0].count) === 0) {
-    console.log('Seeding questions...');
-    for (const q of SEED_QUESTIONS) {
-      await pool.query(
-        `INSERT INTO questions (type, topic, subtopic, page, question, solution)
-         VALUES ($1, $2, $3, $4, $5, $6)`,
-        [q.type, q.topic, q.subtopic, q.page, q.question, q.solution]
-      );
-    }
-    console.log(`✓ Seeded ${SEED_QUESTIONS.length} questions`);
-  } else {
-    console.log(`✓ Database already has ${rows[0].count} questions, skipping seed`);
+  // Always seed fresh after recreating
+  console.log('Seeding questions...');
+  for (const q of SEED_QUESTIONS) {
+    await pool.query(
+      `INSERT INTO questions (type, topic, subtopic, page, question, solution)
+       VALUES ($1, $2, $3, $4, $5, $6)`,
+      [q.type, q.topic, q.subtopic, q.page, q.question, q.solution]
+    );
   }
+  console.log(`✓ Seeded ${SEED_QUESTIONS.length} questions`);
 }
 
 // ── MIDDLEWARE ─────────────────────────────────────────

@@ -201,106 +201,178 @@ app.get('/api/stats', async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── WOLFRAM ALPHA SOLVE ────────────────────────────────
+// ── HELPERS ────────────────────────────────────────────
+
+// Unicode → ASCII so Wolfram can parse math symbols
+function normalizeForWolfram(text) {
+  return text
+    .replace(/^(evaluate|find|compute|calculate|solve|determine|show that|prove that|simplify)\s+/i, '')
+    .replace(/lim\s*\(?\s*([a-z])\s*[→->]+\s*([^)]+)\)?\s*/gi, 'limit as $1->$2 of ')
+    .replace(/lim_\{?([a-z])\s*[→->]+\s*([^}]+)\}?/gi, 'limit as $1->$2 of ')
+    .replace(/⁰/g,'^0').replace(/¹/g,'^1').replace(/²/g,'^2').replace(/³/g,'^3')
+    .replace(/⁴/g,'^4').replace(/⁵/g,'^5').replace(/⁶/g,'^6').replace(/⁷/g,'^7')
+    .replace(/⁸/g,'^8').replace(/⁹/g,'^9').replace(/ⁿ/g,'^n').replace(/ˣ/g,'^x')
+    .replace(/ᵃ/g,'^a').replace(/ᵇ/g,'^b').replace(/ᵐ/g,'^m')
+    .replace(/₀/g,'_0').replace(/₁/g,'_1').replace(/₂/g,'_2').replace(/₃/g,'_3')
+    .replace(/₄/g,'_4').replace(/₅/g,'_5').replace(/₆/g,'_6').replace(/₇/g,'_7')
+    .replace(/₈/g,'_8').replace(/₉/g,'_9')
+    .replace(/α/g,'alpha').replace(/β/g,'beta').replace(/γ/g,'gamma').replace(/δ/g,'delta')
+    .replace(/ε/g,'epsilon').replace(/θ/g,'theta').replace(/λ/g,'lambda').replace(/μ/g,'mu')
+    .replace(/π/g,'pi').replace(/σ/g,'sigma').replace(/φ/g,'phi').replace(/ω/g,'omega')
+    .replace(/Γ/g,'Gamma').replace(/Δ/g,'Delta').replace(/Σ/g,'Sigma').replace(/Ω/g,'Omega')
+    .replace(/→/g,'->').replace(/←/g,'<-').replace(/∞/g,'infinity').replace(/∫/g,'integral')
+    .replace(/∂/g,'d').replace(/√/g,'sqrt').replace(/∑/g,'sum').replace(/∏/g,'product')
+    .replace(/≤/g,'<=').replace(/≥/g,'>=').replace(/≠/g,'!=').replace(/≈/g,'~=')
+    .replace(/·/g,'*').replace(/×/g,'*').replace(/÷/g,'/')
+    .replace(/−/g,'-').replace(/–/g,'-').replace(/—/g,'-')
+    .replace(/′/g,"'").replace(/″/g,"''")
+    .replace(/[^\x00-\x7F]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Call Groq API (groq.com — fast LLM inference)
+async function callGroq(fetch, apiKey, model, systemPrompt, userPrompt) {
+  if (!apiKey) throw new Error('Groq API key not set');
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt },
+      ],
+      temperature: 0.3,
+      max_tokens: 2048,
+    }),
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Groq API error (${res.status}): ${err}`);
+  }
+  const data = await res.json();
+  return data.choices?.[0]?.message?.content?.trim() || '';
+}
+
+// ── MAIN SOLVER ENDPOINT ───────────────────────────────
 app.post('/api/wolfram-solve/:id', async (req, res) => {
   try {
     const { rows } = await pool.query('SELECT * FROM questions WHERE id = $1', [req.params.id]);
     if (!rows.length) return res.status(404).json({ error: 'Not found' });
     const q = rows[0];
 
-    const appId = process.env.WOLFRAM_APP_ID;
-    if (!appId) return res.status(500).json({ error: 'WOLFRAM_APP_ID not configured in environment variables.' });
+    const appId    = process.env.WOLFRAM_APP_ID;
+    const groqKey1 = process.env.GROQ_API_KEY_1;  // fallback solver
+    const groqKey2 = process.env.GROQ_API_KEY_2;  // refiner
+    const fetch   = (await import('node-fetch')).default;
 
-    const fetch = (await import('node-fetch')).default;
+    const cleanQuery = normalizeForWolfram(q.question);
+    console.log(`[solve] question: "${q.question}"`);
+    console.log(`[solve] normalized: "${cleanQuery}"`);
 
-    // Strip common English prefixes so Wolfram gets clean math
-    const cleanQuery = q.question
-      .replace(/^(evaluate|find|compute|calculate|solve|determine|show that|prove that)\s+/i, '')
-      .replace(/lim\(x→(\S+)\)/gi, 'limit as x->$1 of')
-      .replace(/lim\(x->(\S+)\)/gi, 'limit as x->$1 of')
-      .trim();
+    let rawSolution = '';   // what Wolfram/Grok-fallback gives us
+    let source = '';        // 'wolfram' | 'grok-fallback'
 
-    const encodedQuery = encodeURIComponent(cleanQuery);
-
-    // ── ATTEMPT 1: Full Results API — grab ALL pods, request step-by-step states ──
-    const fullUrl = `https://api.wolframalpha.com/v2/query?input=${encodedQuery}&appid=${appId}&output=json&format=plaintext&podstate=Step-by-step+solution&podstate=Show+all+steps&scantimeout=10&podtimeout=10`;
-
-    let solution = '';
-
-    try {
-      const fullRes = await fetch(fullUrl);
-      const data = await fullRes.json();
-
-      if (data.queryresult && data.queryresult.success) {
-        const pods = data.queryresult.pods || [];
-
-        // Collect plaintext from every pod (no filtering — math renders as plaintext for most pods)
-        for (const pod of pods) {
-          const subpods = pod.subpods || [];
-          const texts = subpods
-            .map(s => (s.plaintext || '').trim())
-            .filter(t => t.length > 0);
-
-          if (texts.length > 0) {
-            solution += `── ${pod.title} ──\n${texts.join('\n')}\n\n`;
-          }
-        }
-      }
-    } catch (e) {
-      console.warn('Full API attempt failed:', e.message);
-    }
-
-    // ── ATTEMPT 2: Short Answers API — always returns plain text ──
-    if (!solution.trim()) {
+    // ══ TIER 1: Wolfram Alpha Full Results API ══════════════════════════════════
+    if (appId) {
       try {
-        const shortUrl = `https://api.wolframalpha.com/v1/result?input=${encodedQuery}&appid=${appId}`;
-        const shortRes = await fetch(shortUrl);
-        if (shortRes.ok) {
-          const text = await shortRes.text();
-          if (text && !text.toLowerCase().includes('wolfram')) {
-            solution = `── Result ──\n${text.trim()}\n\n(Step-by-step unavailable for this expression — result from Wolfram Alpha Short Answers API)`;
-          }
-        }
-      } catch (e) {
-        console.warn('Short API fallback failed:', e.message);
-      }
-    }
+        const encoded = encodeURIComponent(cleanQuery);
+        const url = `https://api.wolframalpha.com/v2/query?input=${encoded}&appid=${appId}&output=json&format=plaintext&podstate=Step-by-step+solution&podstate=Show+all+steps&scantimeout=15&podtimeout=15`;
+        const data = await fetch(url).then(r => r.json());
 
-    // ── ATTEMPT 3: Retry Full API with even simpler query (just the math part) ──
-    if (!solution.trim()) {
-      try {
-        const simpleQuery = encodeURIComponent(q.question.replace(/[^\x00-\x7F]/g, '').trim());
-        const retryUrl = `https://api.wolframalpha.com/v2/query?input=${simpleQuery}&appid=${appId}&output=json&format=plaintext`;
-        const retryRes = await fetch(retryUrl);
-        const retryData = await retryRes.json();
-        if (retryData.queryresult && retryData.queryresult.success) {
-          for (const pod of (retryData.queryresult.pods || [])) {
+        if (data.queryresult?.success) {
+          for (const pod of (data.queryresult.pods || [])) {
             const texts = (pod.subpods || []).map(s => (s.plaintext || '').trim()).filter(Boolean);
-            if (texts.length) solution += `── ${pod.title} ──\n${texts.join('\n')}\n\n`;
+            if (texts.length) rawSolution += `=== ${pod.title} ===\n${texts.join('\n')}\n\n`;
           }
         }
-      } catch (e) {
-        console.warn('Retry attempt failed:', e.message);
-      }
+
+        // Wolfram Short Answers fallback if pods had no plaintext
+        if (!rawSolution.trim()) {
+          const shortRes = await fetch(
+            `https://api.wolframalpha.com/v1/result?input=${encoded}&appid=${appId}`
+          );
+          const shortText = await shortRes.text();
+          if (shortRes.ok && shortText && !shortText.toLowerCase().startsWith('wolfram')) {
+            rawSolution = `=== Result ===\n${shortText.trim()}`;
+          }
+        }
+
+        if (rawSolution.trim()) source = 'wolfram';
+      } catch (e) { console.warn('[wolfram] failed:', e.message); }
     }
 
-    if (!solution.trim()) {
+    // ══ TIER 2: Groq Fallback (when Wolfram fails) — uses KEY 1 ═════════════════
+    if (!rawSolution.trim() && groqKey1) {
+      try {
+        console.log('[groq-fallback] wolfram failed, using groq key 1 (llama-3.3-70b)...');
+        rawSolution = await callGroq(
+          fetch,
+          groqKey1,
+          'llama-3.3-70b-versatile',
+          `You are an expert engineering mathematics solver. Solve problems step by step with clear, numbered steps. 
+Be mathematically rigorous. Show every intermediate step. Use plain text — write fractions as a/b, powers as x^n, etc.
+End with a clear boxed final answer line like: ANSWER: [result]`,
+          `Solve this problem step by step:\n${q.question}`
+        );
+        source = 'groq-fallback';
+      } catch (e) { console.warn('[groq-fallback] failed:', e.message); }
+    }
+
+    if (!rawSolution.trim()) {
       return res.status(422).json({
-        error: 'Wolfram Alpha could not produce a text solution for this question. Try editing the question to use plain mathematical notation (e.g. "limit x->0 of (tan(x)/x)^(1/x^2)").'
+        error: `Could not solve this question. Wolfram normalized it to: "${cleanQuery}". Try rephrasing using plain ASCII math notation.`
       });
     }
 
-    solution = solution.trim();
+    // ══ TIER 3: Groq Refiner — uses KEY 2 to beautify into HTML ════════════════
+    let finalSolution = rawSolution.trim();
 
-    // Save to DB and mark solved
+    if (groqKey2) {
+      try {
+        console.log(`[groq-refiner] refining with groq key 2 (llama-3.3-70b), source: ${source}...`);
+        const refined = await callGroq(
+          fetch,
+          groqKey2,
+          'llama-3.3-70b-versatile',
+          `You are a mathematics presentation expert. Your job is to take raw math solutions and reformat them into beautifully structured, visually clear step-by-step solutions using HTML.
+
+OUTPUT RULES — return ONLY the HTML fragment, no markdown fences, no explanation:
+- Wrap the entire output in <div class="ai-solution">
+- Use <div class="sol-step"> for each numbered step with <span class="step-num">Step N</span>
+- Use <div class="sol-result"> for the final answer  
+- Use <code class="math"> for all mathematical expressions
+- Use <div class="sol-section"> with <div class="sol-section-title"> for major section headers
+- Use <div class="sol-note"> for notes, identities, or rules being applied
+- Preserve ALL mathematical content exactly — never omit steps or change values
+- Make it look like a premium textbook solution`,
+          `Original question: ${q.question}
+
+Raw solution data (source: ${source}):
+${rawSolution}
+
+Reformat this into a beautiful, structured HTML step-by-step solution. Keep all math exactly correct.`
+        );
+
+        // Validate it returned actual HTML
+        if (refined && refined.includes('<') && refined.length > 100) {
+          finalSolution = refined;
+        }
+      } catch (e) { console.warn('[groq-refiner] failed, using raw:', e.message); }
+    }
+
     const updated = await pool.query(
       'UPDATE questions SET solution=$1, solved=TRUE WHERE id=$2 RETURNING *',
-      [solution, req.params.id]
+      [finalSolution, req.params.id]
     );
 
-    res.json({ solution, question: updated.rows[0] });
+    res.json({ solution: finalSolution, isHtml: finalSolution.includes('<div'), question: updated.rows[0] });
   } catch (err) {
-    console.error('Wolfram error:', err);
+    console.error('Solver error:', err);
     res.status(500).json({ error: err.message });
   }
 });

@@ -201,6 +201,73 @@ app.get('/api/stats', async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// ── WOLFRAM ALPHA SOLVE ────────────────────────────────
+app.post('/api/wolfram-solve/:id', async (req, res) => {
+  try {
+    const { rows } = await pool.query('SELECT * FROM questions WHERE id = $1', [req.params.id]);
+    if (!rows.length) return res.status(404).json({ error: 'Not found' });
+    const q = rows[0];
+
+    const appId = process.env.WOLFRAM_APP_ID;
+    if (!appId) return res.status(500).json({ error: 'WOLFRAM_APP_ID not configured in environment variables.' });
+
+    // Use Wolfram Alpha Full Results API (pods)
+    const query = encodeURIComponent(q.question);
+    const wolframUrl = `http://api.wolframalpha.com/v2/query?input=${query}&appid=${appId}&output=json&podstate=Step-by-step+solution&includepodid=Result&includepodid=Steps&includepodid=IndefiniteIntegral&includepodid=DefiniteIntegral&includepodid=Derivative&includepodid=SolutionOverASpecificField&includepodid=ComplexSolution&includepodid=Solution`;
+
+    const fetch = (await import('node-fetch')).default;
+    const wolRes = await fetch(wolframUrl);
+    const data = await wolRes.json();
+
+    if (!data.queryresult || !data.queryresult.success) {
+      return res.status(422).json({ error: 'Wolfram Alpha could not interpret this question. Try rephrasing it in mathematical notation.' });
+    }
+
+    const pods = data.queryresult.pods || [];
+    let solution = '';
+
+    // Extract step-by-step and result pods
+    const wantedPods = ['Steps', 'IndefiniteIntegral', 'DefiniteIntegral', 'Derivative',
+      'Result', 'Solution', 'SolutionOverASpecificField', 'ComplexSolution'];
+
+    for (const pod of pods) {
+      const isWanted = wantedPods.some(id => pod.id && pod.id.includes(id)) || pod.title === 'Result';
+      if (!isWanted && !pod.title?.toLowerCase().includes('step')) continue;
+      solution += `── ${pod.title} ──\n`;
+      for (const sub of (pod.subpods || [])) {
+        if (sub.plaintext && sub.plaintext.trim()) {
+          solution += sub.plaintext.trim() + '\n';
+        }
+      }
+      solution += '\n';
+    }
+
+    if (!solution.trim()) {
+      // Fallback: grab all pods
+      for (const pod of pods) {
+        solution += `── ${pod.title} ──\n`;
+        for (const sub of (pod.subpods || [])) {
+          if (sub.plaintext && sub.plaintext.trim()) solution += sub.plaintext.trim() + '\n';
+        }
+        solution += '\n';
+      }
+    }
+
+    solution = solution.trim() || 'Wolfram returned a result but no readable text. Try a more explicit mathematical expression.';
+
+    // Save solution to DB and mark solved
+    const updated = await pool.query(
+      'UPDATE questions SET solution=$1, solved=TRUE WHERE id=$2 RETURNING *',
+      [solution, req.params.id]
+    );
+
+    res.json({ solution, question: updated.rows[0] });
+  } catch (err) {
+    console.error('Wolfram error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ── START ──────────────────────────────────────────────
 initDB().then(() => {
   app.listen(PORT, () => console.log(`✓ MathBank running on port ${PORT}`));

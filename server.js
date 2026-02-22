@@ -550,6 +550,340 @@ const SEED_QUESTIONS = [
   {type:"example",topic:"beta_gamma",subtopic:"Algebraic Substitution",page:"",question:"Evaluate ∫₀^(2a) x⁵·√(2ax - x²) dx",solution:"x=2a·sin²θ → after substitution = (33/16)πa⁷"},
   {type:"example",topic:"limits",subtopic:"L'Hôpital's Rule (1^∞ form)",page:"",question:"Evaluate lim(x→0) (tan(x)/x)^(1/x²)",solution:"ln L = lim ln(tanx/x)/x² → apply L'Hôpital twice → ln L = 1/3.\nL = e^(1/3)"},
   {type:"example",topic:"limits",subtopic:"L'Hôpital's Rule (0^0 form)",page:"",question:"Evaluate lim(x→0) xˣ",solution:"ln L = lim x·lnx = lim lnx/(1/x) → L'Hôpital → 0.\nL = e⁰ = 1"},
+
+  // ════════════════════════════════════════════════════
+  // LIMITS — Continuity & Differentiability (Exercise 1.1)
+  // ════════════════════════════════════════════════════
+  {type:"example",topic:"limits",subtopic:"Indeterminate forms and their limits",page:"14",question:"The quantity of charge Q in Columbus (C) that has passed through a point in a wire up to time t (in seconds) is given by Q(t) = t³ - 2t² + 6t + 2. Calculate the current when: i. t = 0.5  ii. t = 1  iii. At what time current is lowest.",solution:""},
+  {type:"example",topic:"limits",subtopic:"Indeterminate forms and their limits",page:"15",question:"Show that f(x) = {x² + 3 for x < 1,  3x + 1 for x ≥ 1} is not differentiable at x = 1.",solution:""},
+  {type:"example",topic:"limits",subtopic:"Indeterminate forms and their limits",page:"15",question:"The function is defined by f(x) = {x² - 2 for x ≤ 2,  x² - 4x + 6 for x > 2}. Show that f(x) is continuous at x = 2 but not differentiable at x = 2.",solution:""},
+  {type:"example",topic:"limits",subtopic:"Indeterminate forms and their limits",page:"16",question:"Examine the continuity and differentiability at (1) x = 0 and (2) x = π/2 for f(x) = {1 when x ∈ (-∞, 0),  1 + sin x when x ∈ [0, π/2],  2 + (x - π/2)² when x ∈ [π/2, ∞)}",solution:""},
+  {type:"example",topic:"limits",subtopic:"Indeterminate forms and their limits",page:"18",question:"Show that the function f(x) = |x| + |x - 1| is continuous at x = 1 but is not differentiable at that point.",solution:""},
+  {type:"exercise",topic:"limits",subtopic:"Exercise 1.1",page:"19",question:"Show that f(x) = 3x³ is differentiable at x = 2. Find its value.",solution:""},
+  {type:"exercise",topic:"limits",subtopic:"Exercise 1.1",page:"19",question:"Show that f(x) = 4x² - x is differentiable at x = 1. Find its value.",solution:""},
+  {type:"exercise",topic:"limits",subtopic:"Exercise 1.1",page:"19",question:"Show that f(x) = x³ - 4x² - 1 is differentiable at x = -1. Find its value.",solution:""},
+  {type:"exercise",topic:"limits",subtopic:"Exercise 1.1",page:"19",question:"Discuss whether f(x) = {2 + x if x ≥ 0,  2 - x if x < 0} is continuous and differentiable at the origin.",solution:""},
+  {type:"exercise",topic:"limits",subtopic:"Exercise 1.1",page:"19",question:"For f(x) = {x for x < 1,  2 - x for 1 ≤ x < 2,  -2 + 3x - x² for x ≥ 2}, check continuity and differentiability at x = 1.",solution:""},
+  {type:"exercise",topic:"limits",subtopic:"Exercise 1.1",page:"19",question:"For f(x) = {x for x < 1,  2 - x for 1 ≤ x < 2,  -2 + 3x - x² for x ≥ 2}, check continuity and differentiability at x = 2.",solution:""},
+  {type:"exercise",topic:"limits",subtopic:"Exercise 1.1",page:"19",question:"Show that f(x) = {4 - x² for x < 2,  x - 2 for x ≥ 2} is continuous at x = 2 but not differentiable at x = 2.",solution:""},
+  {type:"exercise",topic:"limits",subtopic:"Exercise 1.1",page:"19",question:"Show that f(x) = {5x - 4 for 0 < x ≤ 1,  4x² - 3x for 1 < x < 2,  3x + 4 for x ≥ 2} is continuous at x = 1 and x = 2, and that f'(x) exists at x = 1 but not at x = 2.",solution:""},
+  {type:"exercise",topic:"limits",subtopic:"Exercise 1.1",page:"19",question:"Show that f(x) = {3 + 2x for -3/2 < x ≤ 0,  3 - 2x for 0 < x < 3/2} is continuous at x = 0 but not differentiable at that point.",solution:""},
+  {type:"exercise",topic:"limits",subtopic:"Exercise 1.1",page:"19",question:"Show that f(x) = {2 + x if x ≤ 0,  2 - x if x > 0} is continuous but not differentiable at the origin.",solution:""},
+  {type:"exercise",topic:"limits",subtopic:"Exercise 1.1",page:"20",question:"Show that f'(1/2) does not exist if f(x) = {x for 0 ≤ x < 1/2,  1 - x for 1/2 ≤ x ≤ 1}.",solution:""},
+  {type:"exercise",topic:"limits",subtopic:"Exercise 1.1",page:"20",question:"For f(x) = {x for 0 < x < 1,  2 - x for 1 ≤ x ≤ 2,  x - x²/2 for x > 2}, show that f(x) is continuous at x = 1 and x = 2, and that f(x) is not differentiable at x = 1 but is differentiable at x = 2.",solution:""},
+
+  // ════════════════════════════════════════════════════
+  // FIRST ORDER & HIGHER ODE — Examples
+  // ════════════════════════════════════════════════════
+  {type:"example",topic:"first_higher_ode",subtopic:"Ordinary Differential Equation and its Applications",page:"195",question:"Solve: dy/dx = ky.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Ordinary Differential Equation and its Applications",page:"195",question:"Solve: y dx - x dy = xy dx",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Ordinary Differential Equation and its Applications",page:"195",question:"Solve: (x² + 1) dy/dx = 1.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Ordinary Differential Equation and its Applications",page:"196",question:"Solve: dy/dx = e^(ax + by).",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Ordinary Differential Equation and its Applications",page:"196",question:"Solve: (sin x + cos x) dy = (cos x - sin x) dx",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Ordinary Differential Equation and its Applications",page:"196",question:"Solve: (xy² + x) dx + (yx² + y) dy = 0.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Ordinary Differential Equation and its Applications",page:"196",question:"Solve the initial value problem y' = 2y² + xy², y(0) = 1.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Ordinary Differential Equation and its Applications",page:"196",question:"Solve the initial value problem 2xy' = 3y given y = 4, when x = 1.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Ordinary Differential Equation and its Applications",page:"196",question:"Solve the initial value problem y(1 - x²) dy/dx + x(1 - y²) = 0 given that y = 1, when x = 0.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Reduction into variable separable form by change of variables",page:"198",question:"Solve: (x + y + 1) dy/dx = 1.",solution:""},
+
+  // ════════════════════════════════════════════════════
+  // HOMOGENEOUS ODE — Examples
+  // ════════════════════════════════════════════════════
+  {type:"example",topic:"homogeneous_ode",subtopic:"Homogeneous differential equation",page:"200",question:"Solve: dy/dx = (x + y - a) / (x + y - b) + (x + y + a) / (x + y + b)",solution:""},
+  {type:"example",topic:"homogeneous_ode",subtopic:"Homogeneous differential equation",page:"202",question:"Solve: dy/dx = y/x + y²/x²",solution:""},
+  {type:"example",topic:"homogeneous_ode",subtopic:"Homogeneous differential equation",page:"203",question:"Solve: (x² + y²) dx + 2xy dy = 0.",solution:""},
+  {type:"example",topic:"homogeneous_ode",subtopic:"Homogeneous differential equation",page:"204",question:"Solve: x(x - y) dy + y² dx = 0.",solution:""},
+  {type:"example",topic:"homogeneous_ode",subtopic:"Homogeneous differential equation",page:"205",question:"Solve: x dy/dx = y - √(x² + y²).",solution:""},
+  {type:"example",topic:"homogeneous_ode",subtopic:"Homogeneous differential equation",page:"205",question:"Solve: x sin(y/x) dy/dx = (y sin(y/x) - x) dx.",solution:""},
+
+  // ════════════════════════════════════════════════════
+  // FIRST ORDER ODE — Exercises 3.1
+  // ════════════════════════════════════════════════════
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: √(1 - x²) dy + √(1 - y²) dx = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: (x² + 1) dy/dx = xy",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: (1 + x) y dx + (1 + y) x dy = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: tan y dx + tan x dy = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: dy/dx = (x³ + 1) / (y + 1)",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: sec²x tan y dx + sec²y tan x dy = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: dy/dx + (1 + cos 2y) / (1 - cos 2x) = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: e^(x-y) dx + e^(y-x) dy = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: ln(dy/dx) = 3x + 4y",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: (a² + y²) x dx + y(x² - a²) dy = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: dy/dx = sin⁻¹x",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP: xy' + y = 0, y(1) = 1",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP: y' = x² / y, y(1) = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP: y' = -2xy, y(0) = 1",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP: y' cos²x - sin²y = 0, y(0) = π/2",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP: xyy' = y + 2, y(2) = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP: y' = 2(1 + x)(1 + y²), y(0) = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP: cos y dx + (1 + 2e^(-x)) sin y dy = 0, y(0) = π/4",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP: y' = sec y, y(0) = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP: e^x y' = 2(x + 1) y², y(0) = 1/6",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP: y' = (3x² - e^x) / (2y - 5), y(0) = 1",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP: y'(x² + 1) = -2xy, y(1) = 2.",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Find the curve in the xy-plane that passes through (0, 3) and whose tangent line at a point (x, y) has slope 2x/y².",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Find an equation of a curve with x-intercept 2 whose tangent line at any point (x, y) has slope xe^y.",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve (change of variable): (x + y + 1) dy/dx = 1",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve (change of variable): sin⁻¹(dy/dx) = x + y",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve (change of variable): dy/dx = (y + 1) / (y + 1 + x)",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve (change of variable): (x + y)² dy/dx = a²",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve (change of variable): dy/dx = (4x + y + 1)²",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve (change of variable): dy/dx = √(y - x)",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve (change of variable): y' = (y + 4x)²",solution:""},
+
+  // HOMOGENEOUS ODE — Exercises 3.1 (continued)
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP (homogeneous): xyy' = 2y² + 4x², y(2) = 4",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP (homogeneous): xy' = y + 3x⁴ cos²(y/x), y(1) = 0",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP (homogeneous): y' = (y - x) / (y - x - 1), y(-5) = 5",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve IVP (homogeneous): y' = (1 - 2y - 4x) / (1 + y + 2x), y(0) = 0",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: dy/dx = (3xy + y²) / 3x²",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: 2x + x dy/dx = y",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: dy/dx = (x² + y²) / x² + y",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"207",question:"Solve: (x² - y²) dy = xy dx",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"208",question:"Solve: (x + y) dx + (y - x) dy = 0",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"208",question:"Solve: dy/dx = y³ / x³",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"208",question:"Solve: dy/dx = (3xy + y²) / (x² + xy)",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"208",question:"Solve: x dy/dx = y + √(x² + y²)",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"208",question:"Solve: dy/dx = y/x + tan(y/x)",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"208",question:"Solve IVP: y³ y' + x³ = 0, y(0) = 1",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"208",question:"Solve IVP: (x + y) y' = x - y, y(2) = 0",solution:""},
+  {type:"exercise",topic:"homogeneous_ode",subtopic:"Exercise 3.1",page:"208",question:"Solve IVP: (x³ + y³) y' = x²y, y(0) = 1",solution:""},
+
+  // ════════════════════════════════════════════════════
+  // LINEAR FIRST ORDER ODE — Examples
+  // ════════════════════════════════════════════════════
+  {type:"example",topic:"first_higher_ode",subtopic:"Linear differential equation of first order",page:"211",question:"Solve: dy/dx + 2y = 4x",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Linear differential equation of first order",page:"212",question:"Solve: (1 + x) dy/dx - xy = 1 - x.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Linear differential equation of first order",page:"213",question:"Solve: dy/dx + y tan x = sec x",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Linear differential equation of first order",page:"213",question:"Solve: sin 2x dy/dx - y = tan x.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Linear differential equation of first order",page:"214",question:"Solve: dy/dx + y cot x = √sin x.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Linear differential equation of first order",page:"214",question:"Solve: (x² + 1) dy/dx + 3xy = sin x.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Linear differential equation of first order",page:"214",question:"Solve: (1 + x + xy²) dy/dx + (y + y³) = 0",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Linear differential equation of first order",page:"216",question:"Solve: (1 + y²) dx = (tan⁻¹y - x) dy.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Linear differential equation of first order",page:"216",question:"Solve: dy/dx + y/x = x², if y = 1 when x = 1",solution:""},
+
+  // ════════════════════════════════════════════════════
+  // BERNOULLI'S EQUATION — Examples
+  // ════════════════════════════════════════════════════
+  {type:"example",topic:"bernoulli",subtopic:"Bernoulli's equation",page:"218",question:"Solve: dy/dx + y/x = y²/x²",solution:""},
+  {type:"example",topic:"bernoulli",subtopic:"Bernoulli's equation",page:"219",question:"Solve: dy/dx + y/x = y² ln x.",solution:""},
+  {type:"example",topic:"bernoulli",subtopic:"Bernoulli's equation",page:"220",question:"Solve: dy/dx - y tan x = -y² sec x.",solution:""},
+  {type:"example",topic:"bernoulli",subtopic:"Bernoulli's equation",page:"221",question:"Solve: cos x dy = y(sin x - y) dx.",solution:""},
+  {type:"example",topic:"bernoulli",subtopic:"Bernoulli's equation",page:"221",question:"Solve: dy/dx + y/x = e^x / x² * y²",solution:""},
+  {type:"example",topic:"bernoulli",subtopic:"Bernoulli's equation",page:"222",question:"Solve: dy/dx - tan y / (1 + x) = (1 + x) e^x sec y.",solution:""},
+
+  // ════════════════════════════════════════════════════
+  // EXERCISES 3.2 — Linear & Bernoulli
+  // ════════════════════════════════════════════════════
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"223",question:"Solve: dy/dx + y/x = 1/x²",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"223",question:"Solve: dy/dx + 3y = e^(-x)",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"223",question:"Solve: (1 - x²) dy/dx - xy = 1",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"223",question:"Solve: cos x dy/dx + y sin x = sec²x",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"223",question:"Solve: x ln x dy/dx + y = 2 ln x",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"223",question:"Solve: sec x dy/dx + y sec x = 1",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"223",question:"Solve: (1 + x²) dy/dx + y = e^(tan⁻¹x)",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"223",question:"Solve: sec x dy/dx + y cosec x = 1",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"223",question:"Solve (linear): (x + y + 1) dy/dx = 1",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"223",question:"Solve IVP: xy' + 2y = x² - x + 1, y(1) = 1/2",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"223",question:"Solve IVP: y' + 2y = 4x, y(0) = -1",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"224",question:"Solve IVP: x²y' + 2xy - x + 1 = 0, y(1) = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"224",question:"Solve IVP: y' + 2y tan x = sin x, y(0) = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.2",page:"224",question:"Solve IVP: y' + 2y = 6e^x, y(0) = 5",solution:""},
+  {type:"exercise",topic:"bernoulli",subtopic:"Exercise 3.2",page:"224",question:"Solve (Bernoulli): dy/dx + y/x = y²",solution:""},
+  {type:"exercise",topic:"bernoulli",subtopic:"Exercise 3.2",page:"224",question:"Solve (Bernoulli): dy/dx + y/x = x²y⁶",solution:""},
+  {type:"exercise",topic:"bernoulli",subtopic:"Exercise 3.2",page:"224",question:"Solve (Bernoulli): dy/dx + y tan x = y³ sec x",solution:""},
+  {type:"exercise",topic:"bernoulli",subtopic:"Exercise 3.2",page:"224",question:"Solve (Bernoulli): dy/dx + x sin 2y = x³ cos²y",solution:""},
+  {type:"exercise",topic:"bernoulli",subtopic:"Exercise 3.2",page:"224",question:"Solve (Bernoulli): dy/dx + y/x ln y = y / x² (ln y)²",solution:""},
+  {type:"exercise",topic:"bernoulli",subtopic:"Exercise 3.2",page:"224",question:"Solve IVP (Bernoulli): y' - y tan x = -y² sec x, y(0) = 1",solution:""},
+  {type:"exercise",topic:"bernoulli",subtopic:"Exercise 3.2",page:"224",question:"Solve IVP (Bernoulli): y' + y/x = y², y(1) = 0",solution:""},
+  {type:"exercise",topic:"bernoulli",subtopic:"Exercise 3.2",page:"224",question:"Solve IVP (Bernoulli): y' + y tan x = y² tan x sin y, y(1) = π/2",solution:""},
+
+  // ════════════════════════════════════════════════════
+  // EQUATIONS SOLVABLE FOR p, y, x — Clairaut — Examples
+  // ════════════════════════════════════════════════════
+  {type:"example",topic:"first_higher_ode",subtopic:"Equations solvable for p",page:"225",question:"Solve p² - 9p + 18 = 0.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Equations solvable for p",page:"226",question:"Solve p² + 2py cot x = y².",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Equations solvable for y",page:"228",question:"Solve 4xp² - 8yp - x = 0.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Equations solvable for x",page:"229",question:"Solve x = y - p².",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Equations solvable for x",page:"230",question:"Solve 4yp² - 2px + y = 0.",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Clairaut's equation",page:"232",question:"Solve p = ln(px - y).",solution:""},
+  {type:"example",topic:"first_higher_ode",subtopic:"Clairaut's equation",page:"233",question:"Solve y = px + p(1 - p).",solution:""},
+
+  // EXERCISES 3.3 — Solvable for p, y, x; Clairaut
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.3",page:"234",question:"Solve: p² + 5xp + 6x² = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.3",page:"234",question:"Solve: p² - 7p + 12 = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.3",page:"234",question:"Solve: p³ + 2xp² - y²p² - 2xy²p = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.3",page:"234",question:"Solve: p² - xy - y² - px",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.3",page:"234",question:"Solve: p² + 2px + py + 2xy = 0",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.3",page:"234",question:"Find the general solution: y + px = x⁴p²",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.3",page:"234",question:"Find the general solution: xp² - 2yp + ax = 0. Also find its singular solution.",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.3",page:"234",question:"Find the general solution: y = yp² + 2px",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.3",page:"234",question:"Find the general solution: y - 2px + ayp². Also find its singular solution.",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.3",page:"234",question:"Find the general solution (Clairaut): y = px - 1/p",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.3",page:"234",question:"Find the general solution (Clairaut): sin(y - px) = p",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.3",page:"234",question:"Find the general solution (Clairaut): y = px + p(1 - p). Also find its singular solution.",solution:""},
+  {type:"exercise",topic:"first_higher_ode",subtopic:"Exercise 3.3",page:"234",question:"Find the general solution (Clairaut): y = px + x³. Also find its singular solution.",solution:""},
+
+  // ════════════════════════════════════════════════════
+  // SECOND ORDER LINEAR ODE — Examples
+  // ════════════════════════════════════════════════════
+  {type:"example",topic:"second_order_linear",subtopic:"Second order linear differential equation",page:"238",question:"Solve: y'' - 7y' + 12y = 0.",solution:""},
+  {type:"example",topic:"second_order_linear",subtopic:"Second order linear differential equation",page:"238",question:"Solve: (D + 3)²y = 0.",solution:""},
+  {type:"example",topic:"second_order_linear",subtopic:"Second order linear differential equation",page:"238",question:"Solve: y'' + 6y' + 25y = 0.",solution:""},
+  {type:"example",topic:"second_order_linear",subtopic:"Second order linear differential equation",page:"238",question:"Solve: 6y'' - 5y' + y = 0, y(0) = 4, y'(0) = 0.",solution:""},
+  {type:"example",topic:"second_order_linear",subtopic:"Second order linear differential equation",page:"239",question:"Solve: y'' - 4y' + 5y = 0 given y(0) = 1, y'(0) = 2.",solution:""},
+  {type:"example",topic:"second_order_linear",subtopic:"Second order linear differential equation",page:"239",question:"Solve: d²x/dt² + μx = 0, μ > 0 given x = a and dx/dt = 0 when t = π/(2√μ).",solution:""},
+
+  // EXERCISES 3.4 — Second Order Linear (Homogeneous)
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve: d²y/dx² - 5 dy/dx + 6y = 0.",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve: d²y/dx² - 3 dy/dx + 2y = 0.",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve: d²y/dx² - 9y = 0.",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve: d²y/dx² + 2 dy/dx + 5y = 0.",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve: d²y/dx² + 4 dy/dx + 4y = 0.",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve: d²x/dt² + 5x = 0.",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve: (D² + 3aD - 4a²)y = 0.",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve: (D² - 4D + 4)y = 0.",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve: (D² + 2D)y = 0.",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve: d²y/dx² - 4 dy/dx + 13y = 0.",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve: (8D² - 6D - 5)y = 0.",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve: 16 d²y/dx² + 24 dy/dx + 9y = 0.",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve IVP: y'' + 5y' + 6y = 0, y(0) = 2, y'(0) = 3",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve IVP: y'' - 16y = 0, y(0) = 1, y'(0) = 20",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve IVP: y'' - 3y' + 2y = 0, y(0) = 1, y'(0) = 1",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve IVP: y'' - 4y' + 4 = 0, y(0) = 3, y'(0) = 1",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve IVP: 4y'' - 4y' - 3y = 0, y(-2) = e, y'(-2) = -e/2",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve IVP: 2y'' + y' = 4y, y(0) = 0, y'(0) = 1",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve IVP: y'' + 4y' + 3y = 0, y(0) = 2, y'(0) = -1",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve IVP: y'' - 4y' + 5y = 0, y(0) = 1, y'(0) = 2",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve IVP: y'' + 8y' - 9y = 0, y(1) = 1, y'(1) = 0",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve IVP: y'' + 6y' + 9y = 0, y(0) = -4, y'(0) = 14",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.4",page:"240",question:"Solve IVP: y'' + y' - 2y = 0, y(0) = 3, y'(0) = 0",solution:""},
+
+  // ════════════════════════════════════════════════════
+  // CAUCHY EQUATION — Examples & Exercises 3.5
+  // ════════════════════════════════════════════════════
+  {type:"example",topic:"second_order_linear",subtopic:"Cauchy equation and its solution",page:"243",question:"Solve the equation x²y'' - (5/2)xy' - 2y = 0.",solution:""},
+  {type:"example",topic:"second_order_linear",subtopic:"Cauchy equation and its solution",page:"244",question:"Solve the differential equation x²y'' - 3xy' + 4y = 0.",solution:""},
+  {type:"example",topic:"second_order_linear",subtopic:"Cauchy equation and its solution",page:"244",question:"Solve the differential equation x²y'' + 7xy' + 13y = 0",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.5",page:"244",question:"Find the general solution: x²y'' - 4xy' + 6y = 0",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.5",page:"244",question:"Find the general solution: x²y'' - 20y = 0",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.5",page:"244",question:"Find the general solution: x²y'' - xy' + 2y = 0",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.5",page:"244",question:"Find the general solution: x²y'' + xy' + y = 0",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.5",page:"244",question:"Find the general solution: (4x²D² + 12xD + 3)y = 0",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.5",page:"244",question:"Find the general solution: (x²D² + 7xD + 9)y = 0",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.5",page:"244",question:"Solve IVP (Cauchy): x²y'' - 2xy' + 2y = 0, y(1) = 3/2, y'(1) = 1",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.5",page:"244",question:"Solve IVP (Cauchy): 4x²y'' + 24xy' + 25y = 0, y(1) = 2, y'(1) = -6",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.5",page:"244",question:"Solve IVP (Cauchy): (x²D² - 3xD + 4)y = 0, y(1) = 0, y'(1) = 3",solution:""},
+  {type:"exercise",topic:"second_order_linear",subtopic:"Exercise 3.5",page:"244",question:"Solve IVP (Cauchy): (x²D² + 3xD + 1)y = 0, y(1) = 3, y'(1) = -4",solution:""},
+
+  // ════════════════════════════════════════════════════
+  // SECOND ORDER NON-HOMOGENEOUS — Examples
+  // ════════════════════════════════════════════════════
+  {type:"example",topic:"second_nonhomogeneous",subtopic:"nonhomogeneous linear differential equation",page:"247",question:"Find the general solution of y'' - y' - 2y = 2e^(3x)",solution:""},
+  {type:"example",topic:"second_nonhomogeneous",subtopic:"nonhomogeneous linear differential equation",page:"248",question:"Find the general solution of y'' - 3y' - 4y = 2e^(-x).",solution:""},
+  {type:"example",topic:"second_nonhomogeneous",subtopic:"nonhomogeneous linear differential equation",page:"248",question:"Find the general solution of y'' + 4y = 8x².",solution:""},
+  {type:"example",topic:"second_nonhomogeneous",subtopic:"nonhomogeneous linear differential equation",page:"249",question:"Find the general solution of y'' + 5y' = 15x².",solution:""},
+  {type:"example",topic:"second_nonhomogeneous",subtopic:"nonhomogeneous linear differential equation",page:"249",question:"Find the general solution of y'' - y = sin x.",solution:""},
+  {type:"example",topic:"second_nonhomogeneous",subtopic:"nonhomogeneous linear differential equation",page:"250",question:"Find the general solution of y'' + y = cos x.",solution:""},
+  {type:"example",topic:"second_nonhomogeneous",subtopic:"nonhomogeneous linear differential equation",page:"250",question:"Find the general solution of y'' + 4y' + 4y = 2 cosh x.",solution:""},
+  {type:"example",topic:"second_nonhomogeneous",subtopic:"nonhomogeneous linear differential equation",page:"251",question:"Find the general solution of y'' - 2y' = e^x sin x.",solution:""},
+  {type:"example",topic:"second_nonhomogeneous",subtopic:"nonhomogeneous linear differential equation",page:"252",question:"Find the general solution of the IVP y'' - y' - 2y = 3e^x, y(0) = 0, y'(0) = -2.",solution:""},
+
+  // EXERCISES 3.6 — Undetermined Coefficients
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"252",question:"Find the particular solution: y'' + 2y' + y = x²",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"252",question:"Find the particular solution: y'' + 9y = 6 cos 3x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"252",question:"Find the particular solution: y'' - 6y' + 13y = 4e^(3x)",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the particular solution: y'' + y' - 2y = 14 + 2x - 2x²",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"252",question:"Find the particular solution: y'' - y' - 2y = 3e^(2x)",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"252",question:"Find the general solution: y'' - 3y' - 4y = 3e^(2x)",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"252",question:"Find the general solution: y'' - 3y' - 4y = 2e^(-x)",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"252",question:"Find the general solution: y'' + 10y' + 25y = e^(-5x)",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the general solution: y'' - 2y' - 2y = 10 cos x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"252",question:"Find the general solution: y'' + 4y = sin 3x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the general solution: y'' + 4y = 2 sin 2x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"252",question:"Find the general solution: y'' + 2y' + 10y = 25x² + 3",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"252",question:"Find the general solution: y'' + 4y' + 5y = 10",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the general solution: y'' + 3y' = 28 cosh 4x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the general solution: y'' + y' = x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the general solution: y'' + 5y' = 15x²",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the general solution: y'' - y = 2e^x + 6e^(2x)",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the general solution: y'' - y' - 6y = e^(-x) - 7 cos x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the general solution: y'' + 2y' - 35y = 12e^(5x) + 37 sin 5x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the general solution: y'' - 4y' - 5y = e^x + 4",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the general solution: y'' + 2y' + 3 = 4 sin 2x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the general solution: y'' - 3y' - 4y = -8e^x cos 2x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the general solution: y'' - 2y' - 3y = 3xe^(2x)",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Find the general solution: y'' + 9y = x²e^(3x) + 6",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Solve IVP: y'' - 6y' + 13y = 4e^(3x), y(0) = 2, y'(0) = 4",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Solve IVP: y'' + y' - 2y = 14 + 2x - 2x², y(0) = 0, y'(0) = 0",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Solve IVP: y'' + y' - 2y = 2x, y(0) = 0, y'(0) = 1",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Solve IVP: y'' + y' - 2y = -6 sin 2x - 18 cos 2x, y(0) = 2, y'(0) = 2",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Solve IVP: y'' - 2y' - 3y = 3xe^(2x), y(0) = 1, y'(0) = 0",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Solve IVP: y'' + 2y' + y = e^x; y(0) = -1, y'(0) = 1",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.6",page:"253",question:"Solve IVP: y'' + 2y' + 5y = 4e^(-x) cos 2x, y(0) = 1, y'(0) = 0",solution:""},
+
+  // ════════════════════════════════════════════════════
+  // VARIATION OF PARAMETERS — Examples & Exercises 3.7
+  // ════════════════════════════════════════════════════
+  {type:"example",topic:"second_nonhomogeneous",subtopic:"method of variation of parameter",page:"256",question:"Find the general solution by variation of parameters: y'' - 5y' + 6y = 2e^x.",solution:""},
+  {type:"example",topic:"second_nonhomogeneous",subtopic:"method of variation of parameter",page:"256",question:"Find the general solution by variation of parameters: y'' + y = sin x.",solution:""},
+  {type:"example",topic:"second_nonhomogeneous",subtopic:"method of variation of parameter",page:"257",question:"Find the general solution by variation of parameters: y'' - 2y' + y = e^x / x.",solution:""},
+  {type:"example",topic:"second_nonhomogeneous",subtopic:"method of variation of parameter",page:"258",question:"Solve by variation of parameters: x² d²y/dx² + x dy/dx - y = 16x³; y(1) = -1, y'(1) = 1.",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters: y'' - y' - 2y = 2e^(-x)",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters: y'' + 2y' + y = e^(-x) cos x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters: y'' + 4y = 3 cosec 2x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters: y'' + 4y' + 4y = x^(-2) e^(-2x)",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters: y'' - 2y' + y = 3x^(3/2) e^x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters: y'' + 4y' + 5y = 10",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters: y'' + 2y' + y = 4e^(-x) ln x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters: y'' + 9y = cosec 3x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters: y'' + 9y = sec 3x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters: (D² + 2D + 2)y = 2e^(-x) sec²x",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters (Cauchy): (x²D² - 4xD + 6)y = 21x^(-4)",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters (Cauchy): (x²D² + xD - 9)y = 48x⁵",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters (Cauchy): (x²D² + xD - 1)y = 16x³, y(1) = -1, y'(1) = 1",solution:""},
+  {type:"exercise",topic:"second_nonhomogeneous",subtopic:"Exercise 3.7",page:"260",question:"Solve by variation of parameters (Cauchy): (x²D² - xD + 2)y = x ln x",solution:""},
+
+  // ════════════════════════════════════════════════════
+  // APPLICATION OF ODE — Examples
+  // ════════════════════════════════════════════════════
+  {type:"example",topic:"application_ode",subtopic:"Exponential growth (population growth)",page:"262",question:"UNO reports the world population in 1998 was approximately 5.9 billion growing at about 1.33% per year. Formulate a differential equation for world population and estimate the world population at the end of 2025. When will the population double from 1998?",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Modeling of heating system using Newton's law of cooling",page:"263",question:"(Heating of a building) In winter the daytime temperature in an office building is 21°C. Heating is shut off at 10 PM and turned on at 6 AM. Outside temperature is 7°C. Temperature of building at 2 AM was 18°C. Determine the temperature before heating turns on at 6 AM.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Modeling of heating system using Newton's law of cooling",page:"264",question:"A jar with 2000 L of beer contains 4% alcohol by volume. Beer with 6% alcohol is pumped in at 20 L/min and mixture pumped out at the same rate. What is the percentage of alcohol after one hour?",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Modeling of R-L Circuit",page:"268",question:"An RL circuit has an emf of 5 V, a resistance of 50 Ω, inductance of 1 H and no additional current source. Find the current in the circuit.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Mixing problem",page:"270",question:"A tank initially contains 4 kg of salt dissolved into 100 L of water. Brine of 2 kg/L enters at 5 L/min; uniform solution drains at same rate. Find the amount of salt in the tank after 10 minutes.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Mixing problem",page:"272",question:"A 1500-gallon tank initially contains 600 gallons of water with 5 lbs of salt. Water enters at 9 gal/hr with salt concentration (1 + cos t) lbs/gal. Well-mixed solution leaves at 6 gal/hr. How much salt is in the tank when it overflows?",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Modeling of blood sugar distribution in human body",page:"273",question:"A glucose solution is administered intravenously at constant rate r. Glucose is removed from the bloodstream at rate proportional to concentration C(t): dC/dt = r - KC. (a) If C(0) = C₀, find C(t). (b) Assuming C₀ < r/K, find lim t→∞ C(t) and interpret.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Modeling of rainfall problems",page:"275",question:"When a raindrop falls the size and velocity both increase with time. Initial velocity is zero and initial mass m(0) = m₀. Growth rate of mass m(t) is proportional to current mass. Find velocity v(t) and mass m(t) at any time. Find terminal velocity as t → ∞.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Modeling of rainfall problems",page:"277",question:"(Vertical motion) A body of unit mass falling under gravity encounters atmospheric resistance proportional to velocity v. Show equation of motion is dv/dt = g - kv. Show that as t increases v → g/k, and x = gt/k - g/k²(1 - e^(-kt)) where x is distance fallen from rest.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Modeling of chemical reaction in chemical engineering",page:"279",question:"Chemical C is formed from chemicals A and B. Rate of reaction is proportional to instantaneous amounts of A and B not converted. Initially 40 g of A and 50 g of B; for each gram of B, 2 g of A is used. 10 g of C forms in 5 minutes. How much C forms in 20 minutes? Find limiting amount of C. How much A and B remain after long time?",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Modeling of chemical reaction in chemical engineering",page:"281",question:"(Resisted motion) A moving body is opposed by a force cx per unit mass and resistance bv² per unit mass, where x and v are displacement and velocity. Show velocity starting from rest is v² = c/(2b²)(1 - e^(-2bx)) - cx/b.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Modeling of chemical reaction in chemical engineering",page:"282",question:"A body is rowed with velocity v across a stream of width l. If velocity of current is proportional to the product of distances from the two banks, show the equation of the path is x = ky²/(6v)(3l - 2y).",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Application of second order linear differential equation in spring-mass system",page:"288",question:"(No damping) A mass of 1 kg is attached to a spring on a frictionless surface. A force of 6 N stretches the spring 1.5 m. Mass is released from rest 1 m to the right of equilibrium. Determine position as a function of time.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Application of second order linear differential equation in spring-mass system",page:"288",question:"(Underdamped motion) Solve: x'' + x' + 4x = 0 for the motion of a spring-mass system.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Application of second order linear differential equation in spring-mass system",page:"289",question:"(Critically damped motion) Solve: x'' + 4x' + 4 = 0 for the motion of the spring attached with mass.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Application of second order linear differential equation in spring-mass system",page:"289",question:"(Overdamped motion) Solve: x'' + 5x' + 4 = 0 for the motion of spring-mass system.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Application of second order linear differential equation in spring-mass system",page:"290",question:"(Forced system) Solve: x'' + (1/2)x' + 4x = cos t for the spring-mass system with external force.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Application of second order linear differential equation in spring-mass system",page:"291",question:"A spring with mass 2 kg has natural length 0.5 m. A force of 25.6 N maintains it stretched to 0.7 m. If the spring is stretched to 0.7 m and released with initial velocity 0, find the position at any time t.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Application of second order linear differential equation in spring-mass system",page:"295",question:"Find the charge and current at time t in an RLC circuit with R = 40 Ω, L = 1 H, C = 16×10⁻⁴ F, E(t) = 100 cos(10t), with initial charge and current zero.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Application of second order linear differential equation in spring-mass system",page:"296",question:"A series RLC circuit has capacitor 1.6×10⁻⁶ F and inductor L = 0.4 H. Find resistance R so that the circuit is critically damped.",solution:""},
+  {type:"example",topic:"application_ode",subtopic:"Application of second order linear differential equation in spring-mass system",page:"297",question:"Solve the second order ODE of the series RLC circuit: L d²V_c/dt² + R dV_c/dt + (1/C)V_c = 0, where R = 10 Ω, L = 1 H, C = 16×10⁻⁴ F, V_in = 0, V_c(0) = 6 V, V_c'(0) = 6 A.",solution:""},
+
+  // ════════════════════════════════════════════════════
+  // APPLICATION OF ODE — Exercises 3.8
+  // ════════════════════════════════════════════════════
+  {type:"exercise",topic:"application_ode",subtopic:"Exercise 3.8",page:"297",question:"The growth rate of a culture of bacteria is proportional to the number present. After one day it is 1.5 times the original number. Find after how many days it will be (a) double (b) triple.",solution:""},
+  {type:"exercise",topic:"application_ode",subtopic:"Exercise 3.8",page:"297",question:"A metal bar at 20°C is placed in boiling water. How long does it take to heat the bar practically to 100°C (say 99.99°C) if the temperature after one minute is 51.5°C?",solution:""},
+  {type:"exercise",topic:"application_ode",subtopic:"Exercise 3.8",page:"297",question:"A heater is turned off at night 2 hours before going to bed. Room is at 66°F when heater is turned off and falls to 63°F at bedtime. What is the temperature 8 hours after going to bed? Outside temperature is 32°F.",solution:""},
+  {type:"exercise",topic:"application_ode",subtopic:"Exercise 3.8",page:"297",question:"A cup of coffee at 190°F is in a room at 70°F. At t = 0 the coffee cools at 15°F per minute. (a) Find the function modeling the cooling. (b) How long until temperature reaches 143°F?",solution:""},
+  {type:"exercise",topic:"application_ode",subtopic:"Exercise 3.8",page:"298",question:"A tank contains 40 kg of salt in 200 L of water. A solution of 2 kg/L enters at 5 L/min; uniform solution drains at same rate. Find the amount of salt at any time t. Also determine salt in tank after 15 minutes.",solution:""},
+  {type:"exercise",topic:"application_ode",subtopic:"Exercise 3.8",page:"298",question:"A spring with a 4 kg mass has natural length 1 m and is maintained stretched to 1.3 m by 24.3 N. Spring is compressed to 0.8 m and released with zero velocity. Find position of mass at any time t.",solution:""},
+  {type:"exercise",topic:"application_ode",subtopic:"Exercise 3.8",page:"298",question:"A spring has natural length 0.75 m with a 5 kg mass. A force of 25 N keeps the spring stretched to 1 m. If stretched to 1.1 m and released with velocity 0, find position of mass after t seconds.",solution:""},
+  {type:"exercise",topic:"application_ode",subtopic:"Exercise 3.8",page:"298",question:"A spring with mass 2 kg has damping constant 14 and a force of 6 N to keep it stretched 0.5 m beyond natural length. Spring is stretched 1 m beyond natural length and released with zero velocity. Find position of mass at any time t.",solution:""},
+  {type:"exercise",topic:"application_ode",subtopic:"Exercise 3.8",page:"298",question:"A spring has mass m, spring constant k, ω = √(k/m), damping constant c = 0. External force F(t) = F₀ cos ωt is applied. Show using undetermined coefficients that motion is x(t) = c₁ cos ωt + c₂ sin ωt + F₀/(2mω) sin ωt.",solution:""},
+  {type:"exercise",topic:"application_ode",subtopic:"Exercise 3.8",page:"298",question:"Solve the second order ODE of the parallel RLC circuit: d²E/dt² + (1/RC) dE/dt + (1/LC) E = 0, E(0) = 6, dE(0)/dt = -12, R = 20 Ω, L = 50 H, C = 6×10⁻¹ F.",solution:""},
+  {type:"exercise",topic:"application_ode",subtopic:"Exercise 3.8",page:"298",question:"A series RLC circuit has R = 24 Ω, L = 1 H, C = 0.002 F and a 12 V battery. Initial charge and current are both zero. Find charge and current at any time t.",solution:""},
+  {type:"exercise",topic:"application_ode",subtopic:"Exercise 3.8",page:"298",question:"A battery of 18 V is connected in series with inductance 1/4 H and resistance 30 Ω. Determine current I(t) with initial current zero. Find steady-state current as t → ∞ and transient current.",solution:""},
 ];
 
 async function initDB() {
